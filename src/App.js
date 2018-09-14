@@ -1,7 +1,8 @@
-import React, { Component } from "react";
-import Menu from "./Menu/Menu";
-import Login from "./Login/Login";
-import "./App.css";
+import React, { Component } from 'react';
+import Menu from './Menu/Menu';
+import Login from './Login/Login';
+import './App.css';
+import Register from './Register/Register';
 
 class App extends Component {
   render() {
@@ -12,6 +13,9 @@ class App extends Component {
         </header>
         <div className="App-intro">
           <Login />
+        </div>
+        <div>
+          <Register />
         </div>
       </div>
     );
