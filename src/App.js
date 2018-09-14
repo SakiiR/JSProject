@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Menu from "./Menu/Menu";
 import Login from "./Login/Login";
+import Dashboard from "./Dashboard/Dashboard";
+import { Route, Link } from "react-router-dom";
 import "./App.css";
 
 class App extends Component {
@@ -8,10 +10,13 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <Menu title="Live Chat" />
+          <Link to="/">
+            <Menu title="Live Chat" />
+          </Link>
         </header>
         <div className="App-intro">
-          <Login />
+          <Route exact path="/" component={Dashboard} />
+          <Route path="/login" component={Login} />
         </div>
       </div>
     );
