@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -17,8 +18,8 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-
-    console.log(this.state);
+    // Do login
+    // and then, Resolve or not the promise in the props
   };
 
   render() {
@@ -30,6 +31,7 @@ class Login extends Component {
           autoComplete="off"
           onSubmit={this.handleSubmit}
         >
+        <h1>Please Login</h1>
           <TextField
             id="username"
             label="Username"
@@ -45,7 +47,7 @@ class Login extends Component {
             onChange={this.handleChange("password")}
             margin="normal"
           />
-          <Button variant="contained" color="secondary" type="submit">
+          <Button className="submit"  variant="contained" color="secondary" type="submit">
             Submit
           </Button>
         </form>
@@ -53,5 +55,7 @@ class Login extends Component {
     );
   }
 }
+
+Login.endListenner = PropTypes.func;
 
 export default Login;
