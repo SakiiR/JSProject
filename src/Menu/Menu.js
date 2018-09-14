@@ -1,5 +1,5 @@
 import "./Menu.css";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -14,13 +14,18 @@ class Menu extends Component {
       <div className="MyAppBar">
         <AppBar position="static">
           <Toolbar>
-            <IconButton className='MyBarButton' color="inherit" aria-label="Menu">
+            <IconButton
+              className="MyBarButton"
+              color="inherit"
+              aria-label="Menu"
+            >
               <MenuIcon />
             </IconButton>
-            <Typography className='MyBarInfo' variant="title" color="inherit">
+            <Typography className="MyBarInfo" variant="title" color="inherit">
               {this.props.title}
             </Typography>
             <Button color="inherit">Login</Button>
+            <Button color="inherit">Register</Button>
           </Toolbar>
         </AppBar>
       </div>
@@ -29,7 +34,7 @@ class Menu extends Component {
 }
 
 Menu.propTypes = {
-  title: PropTypes.element.isRequired,
+  title: PropTypes.string
 };
 
 export default Menu;
