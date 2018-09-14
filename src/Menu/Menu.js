@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import { Link } from 'react-router-dom';
 
 class Menu extends Component {
   render() {
@@ -24,8 +25,15 @@ class Menu extends Component {
             <Typography className="MyBarInfo" variant="title" color="inherit">
               {this.props.title}
             </Typography>
-            <Button color="inherit">Login</Button>
-            <Button color="inherit">Register</Button>
+            <Link to="/">
+              <Button color="inherit">Dashboard</Button>
+            </Link>
+            <Link to="/login">
+              <Button color="inherit">Login</Button>
+            </Link>
+            <Link to="/register">
+              <Button color="inherit">Register</Button>
+            </Link>
           </Toolbar>
         </AppBar>
       </div>
