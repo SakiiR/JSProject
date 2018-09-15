@@ -6,20 +6,23 @@ import "./Login.css";
 
 class Login extends Component {
   state = {
-    username: "",
-    password: ""
+    user: {
+      username: "",
+      password: ""
+    }
   };
 
   handleChange = name => event => {
     this.setState({
-      [name]: event.target.value
+      user: {
+        [name]: event.target.value
+      }
     });
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
-    // Do login
-    // and then, Resolve or not the promise in the props
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.handleSubmit(this.state.user);
   };
 
   render() {
@@ -31,7 +34,7 @@ class Login extends Component {
           autoComplete="off"
           onSubmit={this.handleSubmit}
         >
-        <h1>Please Login</h1>
+          <h1>Please Login</h1>
           <TextField
             id="username"
             label="Username"
@@ -47,7 +50,12 @@ class Login extends Component {
             onChange={this.handleChange("password")}
             margin="normal"
           />
-          <Button className="submit"  variant="contained" color="secondary" type="submit">
+          <Button
+            className="submit"
+            variant="contained"
+            color="secondary"
+            type="submit"
+          >
             Submit
           </Button>
         </form>
@@ -56,6 +64,8 @@ class Login extends Component {
   }
 }
 
-Login.endListenner = PropTypes.func;
+Login.propTypes = {
+  handleSubmit: PropTypes.func.isRequired
+};
 
 export default Login;

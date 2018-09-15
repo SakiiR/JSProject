@@ -1,22 +1,20 @@
 import React, { Component } from "react";
-import Menu from "./Menu/Menu";
-import Login from "./Login/Login";
-import Dashboard from "./Dashboard/Dashboard";
-import { Route, Link } from "react-router-dom";
+import Dashboard from "../../components/Dashboard/Dashboard";
+import { Route } from "react-router-dom";
 import "./App.css";
+import ConnectedMenu from "../ConnectedMenu/ConnectedMenu";
+import ConnectedLogin from "../../containers/ConnectedLogin/ConnectedLogin";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <Link to="/">
-            <Menu title="Live Chat" />
-          </Link>
+        <ConnectedMenu title="Live Chat"/>
         </header>
         <div className="App-intro">
           <Route exact path="/" component={Dashboard} />
-          <Route path="/login" component={Login} />
+          <Route path="/login" component={ConnectedLogin} />
         </div>
       </div>
     );

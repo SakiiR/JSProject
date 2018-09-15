@@ -1,17 +1,34 @@
 export default class AuthService {
-    login() {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve();
-            }, 3000);
-        });
-    }
+  static instance;
 
-    register() {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve();
-            }, 3000);
-        });
+  constructor() {
+    if (this.instance) {
+      return this.instance;
     }
+    this.instance = this;
+  }
+
+  login(user) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject(user);
+      }, 3000);
+    });
+  }
+
+  register(user) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject(user);
+      }, 3000);
+    });
+  }
+
+  logout(user) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject({});
+      }, 3000);
+    });
+  }
 }
