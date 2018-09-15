@@ -1,34 +1,37 @@
-export default class AuthService {
-  static instance;
+import axios from "axios";
 
-  constructor() {
-    if (this.instance) {
-      return this.instance;
-    }
-    this.instance = this;
+class AuthService {
+  base_url = "/api";
+
+  async login(user) {
+    const response = await axios.post(`${this.base_url}/auth/login`, {
+      username: user.username,
+      password: user.password
+    });
+    const json = response.json;
+    if (!json.auth) throw json;
+    return json;
   }
 
-  login(user) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        reject(user);
-      }, 3000);
+  async register(user) {
+    const response = await axios.post(`${this.base_url}/auth/register`, {
+      username: user.username,
+      password: user.password
     });
-  }
-
-  register(user) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        reject(user);
-      }, 3000);
-    });
+    const json = response.json;
+    if (!json.auth) throw json;
+    return json;
   }
 
   logout(user) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        reject({});
+        resolve({});
       }, 3000);
     });
   }
 }
+
+const instance = new AuthService();
+
+export default instance;

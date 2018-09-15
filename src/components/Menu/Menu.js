@@ -35,6 +35,9 @@ class Menu extends Component {
                 <Link to="/rooms">
                   <Button color="inherit">Rooms</Button>
                 </Link>
+                <Button color="inherit" onClick={this.props.handleLogout}>
+                  Logout
+                </Button>
                 <span>Logged in</span>
               </div>
             )}
@@ -49,7 +52,8 @@ class Menu extends Component {
 Menu.propTypes = {
   title: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
-  loggedIn: PropTypes.bool.isRequired
+  loggedIn: PropTypes.bool.isRequired,
+  handleLogout: PropTypes.func.isRequired
 };
 
 export default Menu;

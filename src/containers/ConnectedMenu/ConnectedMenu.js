@@ -1,5 +1,6 @@
 import Menu from "../../components/Menu/Menu";
 import { connect } from "react-redux";
+import { logout } from "../../Redux/actions";
 import "./ConnectedMenu.css";
 
 const mapStateToProps = state => {
@@ -10,7 +11,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    handleLogout: (user) => dispatch(logout(user))
+  };
 };
 
 export default connect(

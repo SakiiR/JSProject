@@ -9,28 +9,27 @@ export const service = store => next => action => {
   });
 
   // Retrieve the correct service if we need an http request to be send
-  const associatedService = new (require(`../Services/${
+  const associatedService = require(`../Services/${
     action.__service
-  }.service.js`)).default();
+  }.service.js`).default;
 
-  // Send the http request
-  associatedService[action.__method](...action.params)
-    .then((result) => {
-      // The request succeed
+  (async () => {
+    try {
+      const result = await associatedService[action.__method](...action.params);
       store.dispatch({
         ...action,
         __http: false,
         type: action.type.replace("REQUEST", "SUCCESS")
       });
-    })
-    .catch((result) => {
-      // The request failed
+    } catch (error) {
       store.dispatch({
         ...action,
         __http: false,
-        type: action.type.replace("REQUEST", "FAILURE")
+        type: action.type.replace("REQUEST", "FAILURE"),
+        error: error
       });
-    });
+    }
+  })();
   return next(action);
 };
 

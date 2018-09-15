@@ -13,15 +13,17 @@ class Login extends Component {
   };
 
   handleChange = name => event => {
-    this.setState({
+    const { value } = event.target;
+    this.setState((pState, props) => ({
       user: {
-        [name]: event.target.value
+        ...pState.user,
+        [name]: value
       }
-    });
+    }));
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
+  handleSubmit = event => {
+    event.preventDefault();
     this.props.handleSubmit(this.state.user);
   };
 
@@ -39,7 +41,7 @@ class Login extends Component {
             id="username"
             label="Username"
             className="field username"
-            onChange={this.handleChange("name")}
+            onChange={this.handleChange("username")}
             margin="normal"
           />
           <TextField
