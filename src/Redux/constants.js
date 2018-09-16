@@ -11,7 +11,9 @@ const actions = {
 export const initialState = {
   generalReducer: {
     requestProcessing: false,
-    loggedIn: false
+    loggedIn: false,
+    jwt: null,
+    username: ""
   }
 };
 

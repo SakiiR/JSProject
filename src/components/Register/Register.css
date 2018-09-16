@@ -1,0 +1,10 @@
+.Register
+{
+    width: 50%;
+    margin: auto;
+}
+
+.Register .field
+{
+    width: 100%;
+}

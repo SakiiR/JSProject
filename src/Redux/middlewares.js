@@ -19,7 +19,8 @@ export const service = store => next => action => {
       store.dispatch({
         ...action,
         __http: false,
-        type: action.type.replace("REQUEST", "SUCCESS")
+        type: action.type.replace("REQUEST", "SUCCESS"),
+        result: result
       });
     } catch (error) {
       store.dispatch({
