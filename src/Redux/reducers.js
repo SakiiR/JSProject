@@ -1,30 +1,25 @@
 import { combineReducers } from "redux";
 
-export const defaultState = {
-  loggedIn: false,
-  requestProcessing: false
-};
-
 const generalReducer = (state = {}, action) => {
+  switch (action.type.split('_').slice(-1)[0]) {
+    case "PENDING":
+      state = { ...state, requestProcessing: true };
+      break;
+    case "SUCCESS":
+      state = { ...state, requestProcessing: false };
+      break;
+    case "FAILURE":
+      state = { ...state, requestProcessing: false };
+      break
+    default:
+      state = { ...state };
+  }
+
   switch (action.type) {
-    case "LOGIN_PENDING":
-      return { ...state, requestProcessing: true };
     case "LOGIN_SUCCESS":
-      return { ...state, requestProcessing: false, loggedIn: true };
-    case "LOGIN_FAILURE":
-      return { ...state, requestProcessing: false };
-    case "REGISTER_PENDING":
-      return { ...state, requestProcessing: true };
-    case "REGISTER_SUCCESS":
-      return { ...state, requestProcessing: false };
-    case "REGISTER_FAILURE":
-      return { ...state, requestProcessing: false };
-    case "LOGOUT_PENDING":
-      return { ...state, requestProcessing: true };
+      return { ...state, loggedIn: true };
     case "LOGOUT_SUCCESS":
-      return { ...state, requestProcessing: false, loggedIn: false };
-    case "LOGOUT_FAILURE":
-      return { ...state, requestProcessing: false };
+      return { ...state, loggedIn: false };
     default:
       return state;
   }
