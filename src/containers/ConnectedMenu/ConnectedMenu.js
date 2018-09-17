@@ -6,7 +6,8 @@ import "./ConnectedMenu.css";
 const mapStateToProps = state => {
   return {
     loggedIn: state.generalReducer.loggedIn,
-    loading: state.generalReducer.requestProcessing
+    loading: state.generalReducer.requestProcessing,
+    error: state.generalReducer.error
   };
 };
 
