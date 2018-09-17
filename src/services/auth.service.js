@@ -8,9 +8,7 @@ class AuthService {
 			username: user.username,
 			password: user.password
 		});
-		const json = response.data;
-		if (!json.message.user.token) throw json;
-		return json;
+		return response.data;
 	}
 
 	async register(user) {

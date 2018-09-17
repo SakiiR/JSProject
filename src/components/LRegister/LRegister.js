@@ -39,7 +39,7 @@ class LRegister extends Component {
 		return (
 			<div className="LRegister">
 				<form className="container" noValidate autoComplete="off" onSubmit={this.handleSubmit}>
-					<h1>Please LRegister</h1>
+					<h1>Please Register</h1>
 					<TextField
 						id="username"
 						label="Username"

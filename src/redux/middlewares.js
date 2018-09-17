@@ -22,15 +22,22 @@ export const service = (store) => (next) => (action) => {
 				type: action.type.replace('REQUEST', 'SUCCESS'),
 				result: result
 			});
+			store.dispatch(error_start('Success!'));
+			setTimeout(() => store.dispatch(error_end()), 3000);
 		} catch (error) {
 			store.dispatch({
 				...action,
 				__http: false,
 				type: action.type.replace('REQUEST', 'FAILURE'),
-				error: error.response
-      });
-      store.dispatch(error_start(error.response.data.data));
-      setTimeout(() => store.dispatch(error_end()), 3000);
+				error: error
+			});
+			try {
+				const message = error.response.message;
+				store.dispatch(error_start(error.response.data.data));
+			} catch (err) {
+				store.dispatch(error_start('Unknown error'));
+			}
+			setTimeout(() => store.dispatch(error_end()), 3000);
 		}
 	})();
 	return next(action);
