@@ -1,7 +1,7 @@
-import Menu from "../../components/Menu/Menu";
+import LMenu from "../../components/LMenu/LMenu";
 import { connect } from "react-redux";
-import { logout } from "../../Redux/actions";
-import "./ConnectedMenu.css";
+import { logout } from "../../redux/actions";
+import "./Menu.css";
 
 const mapStateToProps = state => {
   return {
@@ -20,4 +20,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Menu);
+)(LMenu);

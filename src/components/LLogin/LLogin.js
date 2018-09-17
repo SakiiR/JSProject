@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import "./Login.css";
+import "./LLogin.css";
 
-class Login extends Component {
+class LLogin extends Component {
   state = {
     user: {
       username: "",
@@ -29,14 +29,14 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="Login">
+      <div className="LLogin">
         <form
           className="container"
           noValidate
           autoComplete="off"
           onSubmit={this.handleSubmit}
         >
-          <h1>Please Login</h1>
+          <h1>Please LLogin</h1>
           <TextField
             id="username"
             label="Username"
@@ -66,8 +66,8 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
+LLogin.propTypes = {
   handleSubmit: PropTypes.func.isRequired
 };
 
-export default Login;
+export default LLogin;
