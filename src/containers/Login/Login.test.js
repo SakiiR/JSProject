@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ConnectedLogin from "./ConnectedLogin";
+import Login from "./Login";
 
 it("renders without crashing", () => {
   const div = document.createElement("div");
-  ReactDOM.render(<ConnectedLogin />, div);
+  ReactDOM.render(<Login />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

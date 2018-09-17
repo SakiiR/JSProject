@@ -1,6 +1,4 @@
 import axios from 'axios';
-import store from '../Redux/store';
-import { error_start, error_end } from '../Redux/actions';
 
 class AuthService {
 	base_url = '';
@@ -20,7 +18,7 @@ class AuthService {
 			username: user.username,
 			password: user.password
 		});
-    return response.data;
+		return response.data;
 	}
 }
 

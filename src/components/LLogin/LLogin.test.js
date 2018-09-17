@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Menu from './Menu';
+import LLogin from './LLogin';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<Menu />, div);
+  ReactDOM.render(<LLogin />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

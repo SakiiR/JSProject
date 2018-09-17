@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "./Dashboard.css";
+import "./LDashboard.css";
 
-class Dashboard extends Component {
+class LDashboard extends Component {
   render() {
     return (
-      <div className="Dashboard">
+      <div className="LDashboard">
         <div>
           <p>
             Welcome to the dashboard :) Go <Link to="/register">Here</Link> to
@@ -20,4 +20,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default LDashboard;

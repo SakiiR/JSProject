@@ -1,4 +1,4 @@
-import './Menu.css';
+import './LMenu.css';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -6,10 +6,10 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Spinner from '../../components/Spinner/Spinner';
+import LSpinner from '../../components/LSpinner/LSpinner';
 import Snackbar from '@material-ui/core/Snackbar';
 
-class Menu extends Component {
+class LMenu extends Component {
 	render() {
 		return (
 			<div className="MyAppBar">
@@ -42,7 +42,7 @@ class Menu extends Component {
 								<span>Logged in</span>
 							</div>
 						)}
-						<Spinner size={30} show={this.props.loading} />
+						<LSpinner size={30} show={this.props.loading} />
 					</Toolbar>
 				</AppBar>
 				<Snackbar
@@ -55,7 +55,7 @@ class Menu extends Component {
 	}
 }
 
-Menu.propTypes = {
+LMenu.propTypes = {
 	title: PropTypes.string.isRequired,
 	loading: PropTypes.bool.isRequired,
 	loggedIn: PropTypes.bool.isRequired,
@@ -63,4 +63,4 @@ Menu.propTypes = {
 	error: PropTypes.string
 };
 
-export default Menu;
+export default LMenu;

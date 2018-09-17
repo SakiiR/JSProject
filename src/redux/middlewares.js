@@ -1,4 +1,4 @@
-import { error_start, error_end } from '../Redux/actions';
+import { error_start, error_end } from './actions';
 
 export const service = (store) => (next) => (action) => {
 	if (!action.__http) return next(action);
@@ -11,7 +11,7 @@ export const service = (store) => (next) => (action) => {
 	});
 
 	// Retrieve the correct service if we need an http request to be send
-	const associatedService = require(`../Services/${action.__service}.service.js`).default;
+	const associatedService = require(`../services/${action.__service}.service.js`).default;
 
 	(async () => {
 		try {

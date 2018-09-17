@@ -1,9 +1,7 @@
-import "./ConnectedRegister.css";
+import "./Register.css";
 import { connect } from "react-redux";
-import { register } from "../../Redux/actions";
-import Register from "../../components/Register/Register";
-import store from '../../Redux/store';
-import { error_start, error_end } from '../../Redux/actions';
+import { register } from "../../redux/actions";
+import LRegister from "../../components/LRegister/LRegister";
 
 const mapStateToProps = state => {
   return {};
@@ -20,4 +18,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Register);
+)(LRegister);
