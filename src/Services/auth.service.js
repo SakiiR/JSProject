@@ -1,35 +1,27 @@
-import axios from "axios";
+import axios from 'axios';
+import store from '../Redux/store';
+import { error_start, error_end } from '../Redux/actions';
 
 class AuthService {
-  base_url = "/api";
+	base_url = '';
 
-  async login(user) {
-    const response = await axios.post(`${this.base_url}/auth/login`, {
-      username: user.username,
-      password: user.password
-    });
-    const json = response.json;
-    if (!json.auth) throw json;
-    return json;
-  }
+	async login(user) {
+		const response = await axios.post(`/auth/login`, {
+			username: user.username,
+			password: user.password
+		});
+		const json = response.data;
+		if (!json.message.user.token) throw json;
+		return json;
+	}
 
-  async register(user) {
-    const response = await axios.post(`${this.base_url}/auth/register`, {
-      username: user.username,
-      password: user.password
-    });
-    const json = response.json;
-    if (!json.auth) throw json;
-    return json;
-  }
-
-  logout(user) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve({});
-      }, 3000);
-    });
-  }
+	async register(user) {
+		const response = await axios.post(`/auth/register`, {
+			username: user.username,
+			password: user.password
+		});
+    return response.data;
+	}
 }
 
 const instance = new AuthService();

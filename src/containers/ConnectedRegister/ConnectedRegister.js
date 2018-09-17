@@ -2,6 +2,8 @@ import "./ConnectedRegister.css";
 import { connect } from "react-redux";
 import { register } from "../../Redux/actions";
 import Register from "../../components/Register/Register";
+import store from '../../Redux/store';
+import { error_start, error_end } from '../../Redux/actions';
 
 const mapStateToProps = state => {
   return {};
@@ -10,7 +12,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     handleSubmit: (user) => {
-      console.log("Dispatch register");
       dispatch(register(user));
     }
   };
