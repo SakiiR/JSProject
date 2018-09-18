@@ -1,30 +1,31 @@
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import "./LLogin.css";
 
-class LLogin extends Component {
-  state = {
-    user: {
-      username: "",
-      password: ""
-    }
-  };
+class LLogin extends PureComponent {
+  username = "";
 
-  handleChange = name => event => {
+  password = "";
+
+  handleChangeUsername = event => {
     const { value } = event.target;
-    this.setState((pState, props) => ({
-      user: {
-        ...pState.user,
-        [name]: value
-      }
-    }));
+    this.username = value;
   };
 
-  handleSubmit = event => {
+  handleChangePassword = event => {
+    const { value } = event.target;
+    this.password = value;
+  };
+
+  internalHandleSubmit = event => {
     event.preventDefault();
-    this.props.handleSubmit(this.state.user);
+    const { handleSubmit } = this.props;
+    handleSubmit({
+      username: this.username,
+      password: this.password
+    });
   };
 
   render() {
@@ -34,14 +35,14 @@ class LLogin extends Component {
           className="container"
           noValidate
           autoComplete="off"
-          onSubmit={this.handleSubmit}
+          onSubmit={this.internalHandleSubmit}
         >
           <h1>Please Login</h1>
           <TextField
             id="username"
             label="Username"
             className="field username"
-            onChange={this.handleChange("username")}
+            onChange={this.handleChangeUsername}
             margin="normal"
           />
           <TextField
@@ -49,7 +50,7 @@ class LLogin extends Component {
             label="Password"
             type="password"
             className="field password"
-            onChange={this.handleChange("password")}
+            onChange={this.handleChangePassword}
             margin="normal"
           />
           <Button

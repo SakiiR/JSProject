@@ -17,7 +17,7 @@ export const initialState = {
     requestProcessing: false,
     loggedIn: false,
     jwt: null,
-    error: null,
+    error: null
   }
 };
 

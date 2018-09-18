@@ -5,11 +5,8 @@ import { CircularProgress } from "@material-ui/core";
 
 class LSpinner extends Component {
   render() {
-    return (
-      !!this.props.show && (
-        <CircularProgress size={this.props.size} color="secondary" />
-      )
-    );
+    const { show, size } = this.props;
+    return !!show && <CircularProgress size={size} color="secondary" />;
   }
 }
 

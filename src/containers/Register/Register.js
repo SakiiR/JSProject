@@ -3,17 +3,13 @@ import { connect } from "react-redux";
 import { register } from "../../redux/actions";
 import LRegister from "../../components/LRegister/LRegister";
 
-const mapStateToProps = state => {
-  return {};
-};
+const mapStateToProps = state => ({});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    handleSubmit: (user) => {
-      dispatch(register(user));
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  handleSubmit: user => {
+    dispatch(register(user));
+  }
+});
 
 export default connect(
   mapStateToProps,

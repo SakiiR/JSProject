@@ -1,23 +1,27 @@
-import axios from 'axios';
+import axios from "axios";
 
 class AuthService {
-	base_url = '';
+  baseURL = "";
 
-	async login(user) {
-		const response = await axios.post(`/auth/login`, {
-			username: user.username,
-			password: user.password
-		});
-		return response.data;
-	}
+  constructor() {
+    this.baseURL = "";
+  }
 
-	async register(user) {
-		const response = await axios.post(`/auth/register`, {
-			username: user.username,
-			password: user.password
-		});
-		return response.data;
-	}
+  async login(user) {
+    const response = await axios.post(`${this.baseURL}/auth/login`, {
+      username: user.username,
+      password: user.password
+    });
+    return response.data;
+  }
+
+  async register(user) {
+    const response = await axios.post(`${this.baseURL}/auth/register`, {
+      username: user.username,
+      password: user.password
+    });
+    return response.data;
+  }
 }
 
 const instance = new AuthService();
