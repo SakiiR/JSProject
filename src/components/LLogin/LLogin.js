@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
-import React, { PureComponent } from "react";
+import React, { PureComponent as Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import "./LLogin.css";
 
-class LLogin extends PureComponent {
+class LLogin extends Component {
   username = "";
 
   password = "";
