@@ -40,7 +40,7 @@ export const service = store => next => action => {
         type: action.type.replace("REQUEST", "SUCCESS"),
         result
       });
-      dispatchError("Success!", store, 3000);
+      dispatchError(store, "Success!", 3000);
       redirectIfNeeded(action);
     } catch (error) {
       store.dispatch({
@@ -50,9 +50,9 @@ export const service = store => next => action => {
         error
       });
       try {
-        dispatchError(error.response.data.data, store, 3000);
+        dispatchError(store, error.response.data.data, 3000);
       } catch (err) {
-        dispatchError("Unknown error!", store, 3000);
+        dispatchError(store, "Unknown error!", 3000);
       }
     }
   })();

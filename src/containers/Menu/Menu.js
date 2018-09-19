@@ -6,7 +6,8 @@ import "./Menu.css";
 const mapStateToProps = state => ({
   loggedIn: state.generalReducer.loggedIn,
   loading: state.generalReducer.requestProcessing,
-  error: state.generalReducer.error
+  error: state.generalReducer.error,
+  jwt: state.generalReducer.jwt
 });
 
 const mapDispatchToProps = dispatch => ({

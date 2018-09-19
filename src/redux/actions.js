@@ -11,7 +11,7 @@ export const login = user => ({
   __method: "login",
   __service: "auth",
   __redirect: "/rooms",
-  __redirectTime: 1000,
+  __redirectTime: 0,
   params: [user]
 });
 
@@ -26,7 +26,7 @@ export const register = user => ({
   __method: "register",
   __service: "auth",
   __redirect: "/login",
-  __redirectTime: 1000,
+  __redirectTime: 0,
   params: [user]
 });
 
@@ -37,7 +37,7 @@ export const logout = () => ({
   type: actions.LOGOUT_ACTION,
   __http: false,
   __redirect: "/",
-  __redirectTime: 1000
+  __redirectTime: 0
 });
 
 /**
