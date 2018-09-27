@@ -17,7 +17,7 @@ const generalReducer = (state = {}, action) => {
 
   switch (action.type) {
     case "LOGIN_SUCCESS":
-      return { ...state, loggedIn: true };
+      return { ...state, loggedIn: true, jwt: action.result.data.user.token };
     case "LOGOUT_REQUEST":
       return {
         ...state,

@@ -7,10 +7,20 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
+import decode from "jwt-decode";
 import LSpinner from "../LSpinner/LSpinner";
 
+const getUsernameFromJwt = jwt => {
+  if (jwt !== null) {
+    let { username } = decode(jwt);
+    return username;
+  }
+  return "";
+};
+
 const LMenu = props => {
-  const { loggedIn, title, handleLogout, error, loading } = props;
+  const { loggedIn, title, handleLogout, error, loading, jwt } = props;
+  const username = getUsernameFromJwt(jwt);
   return (
     <div className="MyAppBar">
       <AppBar position="static">
@@ -39,7 +49,7 @@ const LMenu = props => {
               <Button color="inherit" onClick={handleLogout}>
                 Logout
               </Button>
-              <span>Logged in</span>
+              <span>Logged in as {!!username && <span>{username}</span>}</span>
             </div>
           )}
           <LSpinner size={30} show={loading} />
@@ -55,7 +65,8 @@ const LMenu = props => {
 };
 
 LMenu.defaultProps = {
-  error: null
+  error: null,
+  jwt: null
 };
 
 LMenu.propTypes = {
@@ -63,6 +74,7 @@ LMenu.propTypes = {
   loading: PropTypes.bool.isRequired,
   loggedIn: PropTypes.bool.isRequired,
   handleLogout: PropTypes.func.isRequired,
+  jwt: PropTypes.string,
   error: PropTypes.string
 };
 
