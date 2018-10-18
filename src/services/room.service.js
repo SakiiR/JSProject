@@ -29,6 +29,27 @@ class RoomService {
     );
     return response.data;
   }
+
+  async list() {
+    await this.getToken();
+    const response = await axios.get(`${this.baseURL}`, {
+      headers: { Authorization: this.authToken }
+    });
+    return response;
+  }
+
+  async remove(room, password) {
+    await this.getToken();
+    const response = await axios.delete(
+      `${this.baseURL}/${room._id}${
+        room.private ? `?password=${password}` : ""
+      }`,
+      {
+        headers: { Authorization: this.authToken }
+      }
+    );
+    return response;
+  }
 }
 
 const instance = new RoomService();
