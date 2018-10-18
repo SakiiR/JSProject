@@ -1,3 +1,5 @@
+import redirect from "../utils/redirect";
+import dispatchError from "../utils/error";
 import actions from "./constants";
 
 /**
@@ -10,8 +12,13 @@ export const login = user => ({
   __http: true,
   __method: "login",
   __service: "auth",
-  __redirect: "/rooms",
-  __redirectTime: 0,
+  onSuccess: async (store, result) => {
+    dispatchError(store, result.message, 5000);
+    redirect("/rooms", 1000);
+  },
+  onError: async (store, error) => {
+    dispatchError(store, error.response.data.message, 5000);
+  },
   params: [user]
 });
 
@@ -25,9 +32,26 @@ export const register = user => ({
   __http: true,
   __method: "register",
   __service: "auth",
-  __redirect: "/login",
-  __redirectTime: 0,
-  params: [user]
+  params: [user],
+  onSuccess: async (store, result) => {
+    redirect("/login", 1000);
+    dispatchError(store, result.message, 5000);
+  },
+  onError: async (store, error) => {
+    dispatchError(store, error.response.data.message, 5000);
+  }
+});
+
+export const roomCreation = room => ({
+  type: actions.ROOM_CREATION_ACTION,
+  __http: true,
+  __method: "create",
+  __service: "room",
+  params: [room],
+  onSuccess: async (store, result) => {},
+  onError: async (store, error) => {
+    dispatchError(store, error.response.data.message, 5000);
+  }
 });
 
 /**
@@ -36,8 +60,9 @@ export const register = user => ({
 export const logout = () => ({
   type: actions.LOGOUT_ACTION,
   __http: false,
-  __redirect: "/",
-  __redirectTime: 0
+  onEnd: async store => {
+    redirect("/", 1000);
+  }
 });
 
 /**

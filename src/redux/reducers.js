@@ -22,7 +22,6 @@ const generalReducer = (state = {}, action) => {
       return {
         ...state,
         loggedIn: false,
-        username: "",
         jwt: null
       };
     case "START_ERROR_ACTION":
@@ -34,8 +33,20 @@ const generalReducer = (state = {}, action) => {
   }
 };
 
+const roomReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "ROOM_CREATION_SUCCESS": {
+      console.log("Room to add: ", action.result.data);
+      return [...state, action.result.data];
+    }
+    default:
+      return state;
+  }
+};
+
 const liveChat = combineReducers({
-  generalReducer
+  generalReducer,
+  roomReducer
 });
 
 export default liveChat;
