@@ -11,6 +11,11 @@ const ROOM_CREATION_ACTION = "ROOM_CREATION_REQUEST";
 const ROOM_LIST_ACTION = "ROOM_LIST_REQUEST";
 const ROOM_REMOVE_ACTION = "ROOM_REMOVE_REQUEST";
 
+/**
+ * Messages Actions
+ */
+const MESSAGE_LIST_ACTION = "MESSAGE_LIST_REQUEST";
+
 const actions = {
   LOGIN_ACTION,
   REGISTER_ACTION,
@@ -18,6 +23,7 @@ const actions = {
   ROOM_CREATION_ACTION,
   ROOM_LIST_ACTION,
   ROOM_REMOVE_ACTION,
+  MESSAGE_LIST_ACTION,
   END_ERROR_ACTION,
   START_ERROR_ACTION
 };
@@ -29,7 +35,8 @@ export const initialState = {
     jwt: null,
     error: null
   },
-  roomReducer: []
+  roomReducer: [],
+  messageReducer: []
 };
 
 export default actions;

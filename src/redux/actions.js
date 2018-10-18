@@ -37,6 +37,25 @@ export const roomRemove = (room, password) => ({
 });
 
 /**
+ * List room messages
+ *
+ * @param {Object{_id, private}} room The room to list the messages from
+ * @param {String} password The room password if needed
+ */
+export const roomListMessages = (room, password = null) => ({
+  type: actions.MESSAGE_LIST_ACTION,
+  __http: true,
+  __method: "list",
+  __service: "messages",
+  params: [room, password],
+  onSuccess: async (store, result) => {},
+  onError: async (store, error) => {
+    dispatchError(store, error.response.data.message);
+    redirect("/rooms", 500);
+  }
+});
+
+/**
  * List the rooms
  */
 export const roomList = () => ({
@@ -45,8 +64,10 @@ export const roomList = () => ({
   __method: "list",
   __service: "room",
   params: [],
-  onSuccess: async (store, result) => {},
-  onError: async (store, result) => {}
+  onSuccess: async (store, result) => {
+    dispatchError(store, result.data.message);
+  },
+  onError: async (store, error) => {}
 });
 
 /**
