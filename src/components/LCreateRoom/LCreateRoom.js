@@ -16,6 +16,11 @@ class LCreateRoom extends Component {
     const { handleSubmit } = this.props;
 
     handleSubmit({ ...this.state });
+    this.setState({
+      roomName: "",
+      roomPrivate: false,
+      roomPassword: ""
+    });
   };
 
   handleChange = (name, chk = false) => event => {

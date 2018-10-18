@@ -1,22 +1,6 @@
-import { errorStart, errorEnd } from "./actions";
-import history from "../utils/history";
-
-const redirectIfNeeded = action => {
-  if (action.__redirect !== undefined && action.__redirect !== null) {
-    setTimeout(() => {
-      history.push(action.__redirect);
-    }, action.__redirectTime);
-  }
-};
-
-const dispatchError = (store, errorMsg, duration) => {
-  store.dispatch(errorStart(errorMsg));
-  setTimeout(() => store.dispatch(errorEnd()), duration);
-};
-
 export const service = store => next => action => {
   if (!action.__http) {
-    redirectIfNeeded(action);
+    if (action.onEnd != null) action.onEnd(store);
     return next(action);
   }
   // The request is now pending
@@ -40,8 +24,9 @@ export const service = store => next => action => {
         type: action.type.replace("REQUEST", "SUCCESS"),
         result
       });
-      dispatchError(store, "Success!", 3000);
-      redirectIfNeeded(action);
+      if (action.onSuccess != null) {
+        await action.onSuccess(store, result);
+      }
     } catch (error) {
       store.dispatch({
         ...action,
@@ -49,10 +34,8 @@ export const service = store => next => action => {
         type: action.type.replace("REQUEST", "FAILURE"),
         error
       });
-      try {
-        dispatchError(store, error.response.data.data, 3000);
-      } catch (err) {
-        dispatchError(store, "Unknown error!", 3000);
+      if (action.onError != null) {
+        await action.onError(store, error);
       }
     }
   })();

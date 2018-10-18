@@ -4,10 +4,16 @@ const LOGOUT_ACTION = "LOGOUT_REQUEST";
 const START_ERROR_ACTION = "START_ERROR_ACTION";
 const END_ERROR_ACTION = "END_ERROR_ACTION";
 
+/**
+ * Rooms Actions
+ */
+const ROOM_CREATION_ACTION = "ROOM_CREATION_REQUEST";
+
 const actions = {
   LOGIN_ACTION,
   REGISTER_ACTION,
   LOGOUT_ACTION,
+  ROOM_CREATION_ACTION,
   END_ERROR_ACTION,
   START_ERROR_ACTION
 };
@@ -18,7 +24,8 @@ export const initialState = {
     loggedIn: false,
     jwt: null,
     error: null
-  }
+  },
+  roomReducer: []
 };
 
 export default actions;

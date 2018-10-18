@@ -21,18 +21,22 @@ class LRooms extends Component {
         <LCreateRoom handleSubmit={this.internalHandleSubmit} />
         <div className="rooms-list">
           <List>
-            {rooms.map(room => (
-              <ListItem key={room._id} button>
-                <ListItemIcon className="icon">
-                  {room.private ? <Lock /> : <LockOpen />}
-                </ListItemIcon>
-                <ListItemText
-                  inset
-                  primary={room.name}
-                  secondary={room.description}
-                />
-              </ListItem>
-            ))}
+            {rooms != null && rooms.length > 0 ? (
+              rooms.map(room => (
+                <ListItem key={room._id} button>
+                  <ListItemIcon className="icon">
+                    {room.private ? <Lock /> : <LockOpen />}
+                  </ListItemIcon>
+                  <ListItemText
+                    inset
+                    primary={room.name}
+                    secondary={room.description}
+                  />
+                </ListItem>
+              ))
+            ) : (
+              <span>No Rooms</span>
+            )}
           </List>
         </div>
       </div>
