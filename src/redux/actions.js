@@ -3,6 +3,53 @@ import dispatchError from "../utils/error";
 import actions from "./constants";
 
 /**
+ * Room creation
+ *
+ * @param {Object{roomPassword, roomName, roomPrivate}} room  the room to create
+ */
+export const roomCreation = room => ({
+  type: actions.ROOM_CREATION_ACTION,
+  __http: true,
+  __method: "create",
+  __service: "room",
+  params: [room],
+  onSuccess: async (store, result) => {},
+  onError: async (store, error) => {
+    dispatchError(store, error.response.data.message, 5000);
+  }
+});
+
+/**
+ * Remove a room
+ *
+ * @param {String} roomId Room id to remove
+ */
+export const roomRemove = (room, password) => ({
+  type: actions.ROOM_REMOVE_ACTION,
+  __http: true,
+  __method: "remove",
+  __service: "room",
+  params: [room, password],
+  onSuccess: async (store, result) => {
+    dispatchError(store, result.data.message);
+  },
+  onError: async (store, result) => {}
+});
+
+/**
+ * List the rooms
+ */
+export const roomList = () => ({
+  type: actions.ROOM_LIST_ACTION,
+  __http: true,
+  __method: "list",
+  __service: "room",
+  params: [],
+  onSuccess: async (store, result) => {},
+  onError: async (store, result) => {}
+});
+
+/**
  * Authenticate a user.
  *
  * @param {Object{username, password}} user The user to login
@@ -14,6 +61,7 @@ export const login = user => ({
   __service: "auth",
   onSuccess: async (store, result) => {
     dispatchError(store, result.message, 5000);
+    store.dispatch(roomList());
     redirect("/rooms", 1000);
   },
   onError: async (store, error) => {
@@ -37,18 +85,6 @@ export const register = user => ({
     redirect("/login", 1000);
     dispatchError(store, result.message, 5000);
   },
-  onError: async (store, error) => {
-    dispatchError(store, error.response.data.message, 5000);
-  }
-});
-
-export const roomCreation = room => ({
-  type: actions.ROOM_CREATION_ACTION,
-  __http: true,
-  __method: "create",
-  __service: "room",
-  params: [room],
-  onSuccess: async (store, result) => {},
   onError: async (store, error) => {
     dispatchError(store, error.response.data.message, 5000);
   }

@@ -35,9 +35,14 @@ const generalReducer = (state = {}, action) => {
 
 const roomReducer = (state = {}, action) => {
   switch (action.type) {
-    case "ROOM_CREATION_SUCCESS": {
-      console.log("Room to add: ", action.result.data);
+    case "ROOM_CREATION_SUCCESS":
       return [...state, action.result.data];
+    case "ROOM_LIST_SUCCESS":
+      return [...state, ...action.result.data.data.rooms];
+    case "ROOM_REMOVE_SUCCESS": {
+      const { room_id: roomId } = action.result.data;
+      state = state.filter(item => item._id !== roomId);
+      return [...state];
     }
     default:
       return state;

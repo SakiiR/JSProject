@@ -2,18 +2,48 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import "./LRooms.css";
 import { List, ListItemIcon, ListItem, ListItemText } from "@material-ui/core";
-import { Lock, LockOpen } from "@material-ui/icons";
+import { Lock, LockOpen, Delete } from "@material-ui/icons";
 import LCreateRoom from "../LCreateRoom/LCreateRoom";
+import LPasswordDialog from "../LPasswordDialog/LPasswordDialog";
 
 class LRooms extends Component {
+  constructor() {
+    super();
+    this.state = { open: false, room: null };
+  }
+
   internalHandleSubmit = room => {
     const { handleCreate } = this.props;
 
     handleCreate(room);
   };
 
+  internalHandleRemove = room => event => {
+    const { handleRemove } = this.props;
+
+    if (room.private === true) {
+      return this.setState({
+        open: true,
+        room: room
+      });
+    }
+    handleRemove(room);
+  };
+
+  internalHandlePasswordDialogClose = password => {
+    const { handleRemove } = this.props;
+    const { room } = this.state;
+
+    this.setState({
+      open: false,
+      room: null
+    });
+    handleRemove(room, password);
+  };
+
   render() {
     const { rooms } = this.props;
+    const { open } = this.state;
 
     return (
       <div className="rooms">
@@ -32,6 +62,7 @@ class LRooms extends Component {
                     primary={room.name}
                     secondary={room.description}
                   />
+                  <Delete onClick={this.internalHandleRemove(room)} />
                 </ListItem>
               ))
             ) : (
@@ -39,6 +70,10 @@ class LRooms extends Component {
             )}
           </List>
         </div>
+        <LPasswordDialog
+          open={open}
+          handleClose={this.internalHandlePasswordDialogClose}
+        />
       </div>
     );
   }
@@ -53,7 +88,8 @@ LRooms.propTypes = {
       _id: PropTypes.string.isRequired
     }).isRequired
   ).isRequired,
-  handleCreate: PropTypes.func.isRequired
+  handleCreate: PropTypes.func.isRequired,
+  handleRemove: PropTypes.func.isRequired
 };
 
 export default LRooms;
