@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import "./LRooms.css";
@@ -53,17 +54,22 @@ class LRooms extends Component {
           <List>
             {rooms != null && rooms.length > 0 ? (
               rooms.map(room => (
-                <ListItem key={room._id} button>
-                  <ListItemIcon className="icon">
-                    {room.private ? <Lock /> : <LockOpen />}
-                  </ListItemIcon>
-                  <ListItemText
-                    inset
-                    primary={room.name}
-                    secondary={room.description}
-                  />
-                  <Delete onClick={this.internalHandleRemove(room)} />
-                </ListItem>
+                <Link
+                  key={room._id}
+                  to={{ pathname: `/room/${room._id}`, state: { room } }}
+                >
+                  <ListItem button>
+                    <ListItemIcon className="icon">
+                      {room.private ? <Lock /> : <LockOpen />}
+                    </ListItemIcon>
+                    <ListItemText
+                      inset
+                      primary={room.name}
+                      secondary={room.description}
+                    />
+                    <Delete onClick={this.internalHandleRemove(room)} />
+                  </ListItem>
+                </Link>
               ))
             ) : (
               <span>No Rooms</span>

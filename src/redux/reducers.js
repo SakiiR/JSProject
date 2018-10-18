@@ -49,9 +49,19 @@ const roomReducer = (state = {}, action) => {
   }
 };
 
+const messageReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "MESSAGE_LIST_SUCCESS":
+      return [...state, ...action.result.data.data.messages];
+    default:
+      return state;
+  }
+};
+
 const liveChat = combineReducers({
   generalReducer,
-  roomReducer
+  roomReducer,
+  messageReducer
 });
 
 export default liveChat;

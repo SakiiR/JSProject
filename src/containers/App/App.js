@@ -6,6 +6,7 @@ import Menu from "../Menu/Menu";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import Rooms from "../Rooms/Rooms";
+import Chat from "../Chat/Chat";
 
 const App = () => (
   <div className="App">
@@ -17,6 +18,7 @@ const App = () => (
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/rooms" component={Rooms} />
+      <Route path="/room/:id" component={Chat} />
     </div>
   </div>
 );
