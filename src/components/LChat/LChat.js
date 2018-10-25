@@ -16,12 +16,12 @@ export default class LChat extends Component {
     // if it crashes, it is becauseyou accessed the component without the <Link state>
     const {
       location: {
-        state: {
-          room: { private: priv }
-        }
-      }
+        state: { room: r }
+      },
+      listMessages
     } = this.props;
-    this.setState({ open: priv });
+    if (r.private === false) listMessages(r, null);
+    this.setState({ open: r.private });
   }
 
   internalHandlePasswordDialogClose = password => {
@@ -32,8 +32,6 @@ export default class LChat extends Component {
       }
     } = this.props;
     this.setState({ password, open: false });
-    // TODO: subscribe to websocket
-    // TODO: if the retrieve message fail redirect the user (action.onError)
     listMessages(r, password);
   };
 
@@ -71,9 +69,11 @@ export default class LChat extends Component {
           {messages.map(
             message =>
               message.room._id === roomId && (
-                <span key={message._id}>
-                  {message.text} from {messages.from.username}
-                </span>
+                <div className="message">
+                  <span key={message._id}>
+                    {message.text} from {message.from.username}
+                  </span>
+                </div>
               )
           )}
         </div>

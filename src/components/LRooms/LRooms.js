@@ -20,6 +20,7 @@ class LRooms extends Component {
   };
 
   internalHandleRemove = room => event => {
+    event.stopPropagation();
     const { handleRemove } = this.props;
 
     if (room.private === true) {
@@ -54,22 +55,19 @@ class LRooms extends Component {
           <List>
             {rooms != null && rooms.length > 0 ? (
               rooms.map(room => (
-                <Link
-                  key={room._id}
-                  to={{ pathname: `/room/${room._id}`, state: { room } }}
-                >
-                  <ListItem button>
-                    <ListItemIcon className="icon">
-                      {room.private ? <Lock /> : <LockOpen />}
-                    </ListItemIcon>
+                <ListItem button key={room._id}>
+                  <ListItemIcon className="icon">
+                    {room.private ? <Lock /> : <LockOpen />}
+                  </ListItemIcon>
+                  <Link to={{ pathname: `/room/${room._id}`, state: { room } }}>
                     <ListItemText
                       inset
                       primary={room.name}
                       secondary={room.description}
                     />
-                    <Delete onClick={this.internalHandleRemove(room)} />
-                  </ListItem>
-                </Link>
+                  </Link>
+                  <Delete onClick={this.internalHandleRemove(room)} />
+                </ListItem>
               ))
             ) : (
               <span>No Rooms</span>

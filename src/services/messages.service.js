@@ -26,6 +26,18 @@ class MessageService {
     );
     return result;
   }
+
+  async create(room, password, message) {
+    await this.getToken();
+    const result = await axios.post(
+      `${this.baseURL}room/${room._id}/message${
+        room.private ? `?password=${password}` : ""
+      }`,
+      message,
+      { headers: { Authorization: this.authToken } }
+    );
+    return result;
+  }
 }
 
 const instance = new MessageService();
