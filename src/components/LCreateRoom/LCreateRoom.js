@@ -8,7 +8,8 @@ class LCreateRoom extends Component {
   state = {
     roomName: "",
     roomPrivate: false,
-    roomPassword: ""
+    roomPassword: "",
+    roomDescription: ""
   };
 
   internalHandleSubmit = event => {
@@ -19,7 +20,8 @@ class LCreateRoom extends Component {
     this.setState({
       roomName: "",
       roomPrivate: false,
-      roomPassword: ""
+      roomPassword: "",
+      roomDescription: ""
     });
   };
 
@@ -32,7 +34,7 @@ class LCreateRoom extends Component {
   };
 
   render() {
-    const { roomName, roomPrivate, roomPassword } = this.state;
+    const { roomName, roomPrivate, roomPassword, roomDescription } = this.state;
 
     return (
       <div className="rooms">
@@ -43,6 +45,13 @@ class LCreateRoom extends Component {
             value={roomName}
             onChange={this.handleChange("roomName")}
             id="create-room"
+          />
+          <TextField
+            label="Room Description"
+            name="room-description"
+            value={roomDescription}
+            onChange={this.handleChange("roomDescription")}
+            id="room-description"
           />
           <Tooltip title="Change privateness">
             <Checkbox

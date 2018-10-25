@@ -48,7 +48,9 @@ export const roomListMessages = (room, password = null) => ({
   __method: "list",
   __service: "messages",
   params: [room, password],
-  onSuccess: async (store, result) => {},
+  onSuccess: async (store, result) => {
+    dispatchError(store, result.data.data.message);
+  },
   onError: async (store, error) => {
     dispatchError(store, error.response.data.message);
     redirect("/rooms", 500);

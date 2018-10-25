@@ -24,9 +24,7 @@ export const service = store => next => action => {
         type: action.type.replace("REQUEST", "SUCCESS"),
         result
       });
-      if (action.onSuccess != null) {
-        await action.onSuccess(store, result);
-      }
+      if (action.onSuccess != null) await action.onSuccess(store, result);
     } catch (error) {
       store.dispatch({
         ...action,
@@ -34,9 +32,7 @@ export const service = store => next => action => {
         type: action.type.replace("REQUEST", "FAILURE"),
         error
       });
-      if (action.onError != null) {
-        await action.onError(store, error);
-      }
+      if (action.onError != null) await action.onError(store, error);
     }
   })();
   return next(action);
