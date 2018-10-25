@@ -15,7 +15,8 @@ class LPasswordDialog extends Component {
     this.state = { password: "" };
   }
 
-  internalHandleClose = () => {
+  internalHandleClose = (event = null) => {
+    if (event !== null) event.preventDefault();
     const { handleClose } = this.props;
     const { password } = this.state;
 
@@ -36,32 +37,31 @@ class LPasswordDialog extends Component {
         onClose={this.internalHandleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">
-          Access a password protected resource
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            This is a private resource ! Can you please enter this resource
-            password.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="password"
-            type="password"
-            label="Password"
-            onChange={this.internalHandlePasswordChange}
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.internalHandleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={this.internalHandleClose} color="primary">
-            Submit
-          </Button>
-        </DialogActions>
+        <form onSubmit={this.internalHandleClose}>
+          <DialogTitle id="form-dialog-title">
+            Access a password protected resource
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              This is a private resource ! Can you please enter this resource
+              password.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="password"
+              type="password"
+              label="Password"
+              onChange={this.internalHandlePasswordChange}
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.internalHandleClose} color="primary">
+              Submit
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     );
   }

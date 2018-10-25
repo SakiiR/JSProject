@@ -23,7 +23,9 @@ class RoomService {
       {
         password: room.roomPassword,
         private: room.roomPrivate,
-        name: room.roomName
+        name: room.roomName,
+        description:
+          room.roomDescription.length > 0 ? room.roomDescription : null
       },
       { headers: { Authorization: this.authToken } }
     );

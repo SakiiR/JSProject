@@ -13,6 +13,7 @@ export default class LChat extends Component {
   }
 
   componentDidMount() {
+    // if it crashes, it is becauseyou accessed the component without the <Link state>
     const {
       location: {
         state: {
