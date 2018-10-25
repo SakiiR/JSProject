@@ -15,6 +15,16 @@ const ROOM_REMOVE_ACTION = "ROOM_REMOVE_REQUEST";
  * Messages Actions
  */
 const MESSAGE_LIST_ACTION = "MESSAGE_LIST_REQUEST";
+const MESSAGE_CREATE_ACTION = "MESSAGE_CREATE_REQUEST";
+
+/**
+ * WS
+ */
+const NEW_ROOM_ACTION = "NEW_ROOM_ACTION";
+const WS_CONNECTED_ACTION = "WS_CONNECTED_ACTION";
+const WS_ROOM_CONNECTED_ACTION = "WS_ROOM_CONNECTED_ACTION";
+const REMOVED_ROOM_ACTION = "REMOVED_ROOM_ACTION";
+const NEW_MESSAGE_ACTION = "NEW_MESSAGE_ACTION";
 
 const actions = {
   LOGIN_ACTION,
@@ -24,8 +34,14 @@ const actions = {
   ROOM_LIST_ACTION,
   ROOM_REMOVE_ACTION,
   MESSAGE_LIST_ACTION,
+  MESSAGE_CREATE_ACTION,
   END_ERROR_ACTION,
-  START_ERROR_ACTION
+  START_ERROR_ACTION,
+  WS_CONNECTED_ACTION,
+  WS_ROOM_CONNECTED_ACTION,
+  NEW_ROOM_ACTION,
+  REMOVED_ROOM_ACTION,
+  NEW_MESSAGE_ACTION
 };
 
 export const initialState = {
@@ -33,7 +49,8 @@ export const initialState = {
     requestProcessing: false,
     loggedIn: false,
     jwt: null,
-    error: null
+    error: null,
+    socket: null
   },
   roomReducer: [],
   messageReducer: []
