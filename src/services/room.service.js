@@ -2,12 +2,12 @@ import axios from "axios";
 import store from "../redux/store";
 
 class RoomService {
-  baseURL = "";
+  baseURL = "/api/room";
 
   authToken = "";
 
   constructor() {
-    this.baseURL = "/room";
+    this.baseURL = "/api/room";
     this.getToken();
   }
 
@@ -25,7 +25,7 @@ class RoomService {
         private: room.roomPrivate,
         name: room.roomName,
         description:
-          room.roomDescription.length > 0 ? room.roomDescription : null
+          room.roomDescription.length > 0 ? room.roomDescription : undefined
       },
       { headers: { Authorization: this.authToken } }
     );

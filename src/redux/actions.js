@@ -2,6 +2,7 @@ import redirect from "../utils/redirect";
 import dispatchError from "../utils/error";
 import actions from "./constants";
 import roomWS from "../ws/rooms";
+import chatWS from "../ws/chat";
 
 /**
  * Room creation
@@ -18,7 +19,7 @@ export const roomCreation = room => ({
     const state = store.getState();
     const { socket } = state.generalReducer;
 
-    socket.emit("new-room", result.data);
+    if (socket !== null) socket.emit("new-room", result.data);
   },
   onError: async (store, error) => {
     dispatchError(store, error.response.data.message, 5000);
@@ -44,7 +45,33 @@ export const roomRemove = (room, password) => ({
 
     socket.emit("removed-room", result.data.room);
   },
-  onError: async (store, result) => {}
+  onError: async (store, error) => {
+    dispatchError(store, error.response.data.message);
+  }
+});
+
+/**
+ * Remove a message
+ *
+ * @param {String} messageId Messages's id
+ */
+export const messageRemove = message => ({
+  type: actions.MESSAGE_REMOVE_ACTION,
+  __http: true,
+  __method: "remove",
+  __service: "messages",
+  params: [message],
+  onSuccess: async (store, result) => {
+    dispatchError(store, result.data.message);
+
+    const state = store.getState();
+    const { roomSocket: socket } = state.generalReducer;
+
+    socket.emit("removed-message", result.data.message_body);
+  },
+  onError: async (store, error) => {
+    dispatchError(store, error.response.data.message);
+  }
 });
 
 /**
@@ -61,6 +88,8 @@ export const roomListMessages = (room, password = null) => ({
   params: [room, password],
   onSuccess: async (store, result) => {
     dispatchError(store, result.data.data.message);
+
+    chatWS(store, room, password);
   },
   onError: async (store, error) => {
     dispatchError(store, error.response.data.message);
@@ -134,7 +163,11 @@ export const logout = () => ({
   __http: false,
   onEnd: async store => {
     redirect("/", 1000);
-    store.getState().generalReducer.socket.disconnect();
+    const {
+      generalReducer: { socket, roomSocket }
+    } = store.getState();
+    if (socket != null) socket.disconnect();
+    if (roomSocket != null) roomSocket.disconnect();
   }
 });
 
@@ -189,7 +222,10 @@ export const wsRoomConnected = socket => ({
 export const wsNewRoom = room => ({
   type: actions.NEW_ROOM_ACTION,
   __http: false,
-  room
+  room,
+  onEnd: store => {
+    dispatchError(store, "New room created!", 5000);
+  }
 });
 
 /**
@@ -200,7 +236,10 @@ export const wsNewRoom = room => ({
 export const wsNewMessage = message => ({
   type: actions.NEW_MESSAGE_ACTION,
   __http: false,
-  message
+  message,
+  onEnd: store => {
+    dispatchError(store, "New message arrived!", 5000);
+  }
 });
 
 /**
@@ -212,6 +251,17 @@ export const wsRemovedRoom = room => ({
   type: actions.REMOVED_ROOM_ACTION,
   __http: false,
   room
+});
+
+/**
+ * This event is triggered when a message is removed.
+ *
+ * @param {Object{message}} message The removed message
+ */
+export const wsRemovedMessage = message => ({
+  type: actions.REMOVED_MESSAGE_ACTION,
+  __http: false,
+  message
 });
 
 /**
@@ -228,7 +278,12 @@ export const roomCreateMessage = (room, password = null, message) => ({
   __service: "messages",
   params: [room, password, message],
   onSuccess: async (store, result) => {
-    store.dispatch(wsNewMessage(result.data.message_body));
+    const state = store.getState();
+    const { roomSocket: socket } = state.generalReducer;
+
+    if (socket != null) socket.emit("new-message", result.data);
   },
-  onError: async (store, error) => {}
+  onError: async (store, error) => {
+    dispatchError(store, error.response.data.message, 5000);
+  }
 });
