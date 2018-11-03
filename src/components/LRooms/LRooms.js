@@ -2,8 +2,17 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import "./LRooms.css";
-import { List, ListItemIcon, ListItem, ListItemText } from "@material-ui/core";
-import { Lock, LockOpen, Delete } from "@material-ui/icons";
+import {
+  List,
+  ListItemIcon,
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction,
+  IconButton
+} from "@material-ui/core";
+import { Lock, LockOpen, Delete, Send } from "@material-ui/icons";
+import getUsernameFromJwt from "../../utils/jwt";
+import store from "../../redux/store";
 import LCreateRoom from "../LCreateRoom/LCreateRoom";
 import LPasswordDialog from "../LPasswordDialog/LPasswordDialog";
 
@@ -46,7 +55,10 @@ class LRooms extends Component {
   render() {
     const { rooms } = this.props;
     const { open } = this.state;
-
+    const {
+      generalReducer: { jwt }
+    } = store.getState();
+    const username = getUsernameFromJwt(jwt);
     return (
       <div className="rooms">
         <h1>Rooms</h1>
@@ -55,18 +67,41 @@ class LRooms extends Component {
           <List>
             {rooms != null && rooms.length > 0 ? (
               rooms.map(room => (
-                <ListItem button key={room._id}>
+                <ListItem key={room._id}>
                   <ListItemIcon className="icon">
                     {room.private ? <Lock /> : <LockOpen />}
                   </ListItemIcon>
-                  <Link to={{ pathname: `/room/${room._id}`, state: { room } }}>
+                  {room.creator.username !== undefined && (
                     <ListItemText
                       inset
                       primary={room.name}
-                      secondary={room.description}
+                      secondary={`${room.creator.username} - ${
+                        room.description
+                      }`}
                     />
-                  </Link>
-                  <Delete onClick={this.internalHandleRemove(room)} />
+                  )}
+                  {room.creator.username === undefined && (
+                    <ListItemText
+                      inset
+                      primary={room.name}
+                      secondary={`${username} - ${room.description}`}
+                    />
+                  )}
+                  <ListItemSecondaryAction>
+                    <Link
+                      to={{ pathname: `/room/${room._id}`, state: { room } }}
+                    >
+                      <IconButton aria-label="Send">
+                        <Send />
+                      </IconButton>
+                    </Link>
+                    {(room.creator.username === username ||
+                      room.creator.username === undefined) && (
+                      <IconButton aria-label="Delete">
+                        <Delete onClick={this.internalHandleRemove(room)} />
+                      </IconButton>
+                    )}
+                  </ListItemSecondaryAction>
                 </ListItem>
               ))
             ) : (
