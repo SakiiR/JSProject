@@ -8,8 +8,8 @@ The back project have to be running to make the front work.
 
 The front is using a proxy pass to communicate with the back.
 
-`/ws` -> `http://back:4242/ws`
-`/api` -> `http://back:1337/api`
+* `/ws` -> `http://back:4242/ws`
+* `/api` -> `http://back:1337/api`
 
 https://github.com/SakiiR/JSProject-Back
 
