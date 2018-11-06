@@ -43,3 +43,7 @@ $ docker build -t jsproject-front .
 $ docker run -p 80:80 jsproject-front
 $ # Now access https://localhost/ !
 ```
+
+You can also refer to the folowing repository to run the application with docker-compose
+
+https://github.com/SakiiR/LiveChat
