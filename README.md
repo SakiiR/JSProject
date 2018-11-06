@@ -4,7 +4,7 @@ Javascript Full Stack EPITECH Project
 
 ## Dependency
 
-The back project have to be running to make the front work.
+The back project have to be live to make the front work.
 
 The front is using a proxy pass to communicate with the back.
 
